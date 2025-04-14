@@ -4,7 +4,7 @@ import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
 import com.group.libraryapp.service.fruit.FruitService;
-import com.group.libraryapp.service.user.UserService;
+import com.group.libraryapp.service.user.UserServiceV2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +13,12 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceV2 userService;
     private final FruitService fruitService;
 
-    //스프링 빈 주입 받는 방법
+    // 스프링 빈 주입 받는 방법
     // 첫번째 방법 : 생성자 사용 (@Autowired 생략 가능) - 권장
-    public UserController(UserService userService, @Qualifier("main") FruitService fruitService) {
+    public UserController(UserServiceV2 userService, @Qualifier("main") FruitService fruitService) {
         this.userService = userService;
         this.fruitService = fruitService;
     }
