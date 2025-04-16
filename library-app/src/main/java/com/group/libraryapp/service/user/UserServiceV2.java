@@ -45,7 +45,7 @@ public class UserServiceV2 {
                 .orElseThrow(IllegalArgumentException::new);
 
         user.updateName(request.getName());
-        //영속성 컨텍스트가 수정됨을 알고 자동 save 해준다.
+        //영속성 컨텍스트가 수정됨을 알고(변경 감지) 자동 save 해준다.
         //userRepository.save(user);
         //영속성 컨텍스트 끝
     }
