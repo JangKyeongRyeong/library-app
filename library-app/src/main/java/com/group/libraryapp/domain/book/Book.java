@@ -5,13 +5,13 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
     private Long id = null;
 
-    @Getter
     @Column(nullable = false)
     private String name;
 

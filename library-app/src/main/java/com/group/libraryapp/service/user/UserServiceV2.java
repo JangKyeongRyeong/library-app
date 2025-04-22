@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,11 +53,8 @@ public class UserServiceV2 {
 
     @Transactional
     public void deleteUser(String name) {
-        User user = userRepository.findByName(name);
-
-        if(user == null){
-            throw new IllegalArgumentException();
-        }
+        User user = userRepository.findByName(name)
+                .orElseThrow(IllegalArgumentException::new);
 
         userRepository.delete(user);
     }

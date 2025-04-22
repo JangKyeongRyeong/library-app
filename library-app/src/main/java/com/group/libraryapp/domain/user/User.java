@@ -6,20 +6,18 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class User {
 
     @Id //primary key로 간주 한다
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
-    @Getter
     private Long id = null;
 
     @Column(nullable = false, length = 20)
-    @Getter
     // @Column(nullable = false, length = 20, name = name)
     private String name;
 
     //@Column 별다른 옵션 없을 시 생략 가능
-    @Getter
     private Integer age;
 
     //JPA 사용시 기본 생성자 반드시 필요함
