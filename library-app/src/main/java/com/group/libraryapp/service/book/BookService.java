@@ -34,6 +34,7 @@ public class BookService {
 
     @Transactional
     public void loanBook(BookLoanRequest request) {
+
         // 1. 책 정보를 가져온다
         Book book = bookRepository.findByName(request.getBookName())
                 .orElseThrow(IllegalArgumentException::new);
@@ -51,24 +52,33 @@ public class BookService {
         User user = userRepository.findByName(request.getUserName())
                 .orElseThrow(IllegalArgumentException::new);
 
+
         // 5. 유저 정보와 책 정보를 기반으로 UserLoanHistory 를 저장
-        userLoanHistoryRepository.save(new UserLoanHistory(user.getId(), book.getName()));
+        //userLoanHistoryRepository.save(new UserLoanHistory(user, book.getName()));
+
+        // 5번처럼 UserLoanHistory 객체를 직접 사용하지 않고 user.loanBook()을 통해 저장.
+        user.loanBook(book.getName());
+
     }
 
     @Transactional
     public void returnBook(BookReturnRequest request) {
-
         User user = userRepository.findByName(request.getUserName())
                 .orElseThrow(IllegalAccessError::new);
 
+        /*
         UserLoanHistory history = userLoanHistoryRepository.findByUserIdAndBookName(user.getId(), request.getBookName())
                 .orElseThrow(IllegalArgumentException::new);
 
         history.doRetrun();
+        */
+
         /*
             @Transactional의 영속성 컨텍스트의 변경 감지 기능 덕분에 save 별도로 안해도됨
             userLoanHistoryRepository.save(history);   -> 불필요
         */
+
+        user.returnBook(request.getBookName());
 
     }
 }
